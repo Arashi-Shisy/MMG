@@ -1,0 +1,37 @@
+{% extends "layout.html" %}
+
+{% block title %}
+TopPage
+{% endblock %}
+
+{% block content %}
+<main>
+    {% with messages = get_flashed_messages(with_categories=true) %}
+    {% for category, message in messages %}
+    {% if category == 'top_flash' %}
+    <p class="alert">{{ message }}</p>
+    {% endif %}
+    {% endfor %}
+    {% endwith %}
+    <section class="link-section">
+        <h2>目標紐付け</h2>
+        <form action="/link_goals" method="POST">
+            <div class="input-group">
+                <select id="goal_id_01" name="goal_id_01">
+                    {% for goal in goal_list %}
+                    <option value="{{goal.goal_id}}">{{goal.goal_title}}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <div class="input-group">
+                <select id="goal_id_02" name="goal_id_02">
+                    {% for goal in goal_list %}
+                    <option value="{{goal.goal_id}}">{{goal.goal_title}}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <button class="cta-button">紐付け</button>
+        </form>
+    </section>
+</main>
+{% endblock %}

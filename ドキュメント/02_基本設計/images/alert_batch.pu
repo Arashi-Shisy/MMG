@@ -1,0 +1,39 @@
+@startuml
+|バッチ|
+:処理開始;
+|D B|
+:goals]
+:users]
+note right
+INNER JOIN
+endnote
+|バッチ|
+:メール送付対象リスト]
+while (リストの中身がある)
+    while (リストの中身がある)
+        :email取り出し;
+        if (emailが送付予約リストに) then (なし)
+            :本文作成;
+            :送付予約リストに追加;
+            :リストから削除;
+        else (あり)
+            :作成済み本文に目標追加;
+            :リストから削除;
+        endif
+    endwhile
+    :メール送信;
+    :ログを出力;
+    note right
+    アラートメール送信完了
+    endnote 
+    :処理を終了;
+    end
+endwhile
+:ログを出力;
+note right
+送信対象がありません
+endnote 
+:処理終了;
+end
+
+@enduml

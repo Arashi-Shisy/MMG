@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MMO - ユーザーの目標設定と観測、評価を補助するWebアプリ</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=M+PLUS+1+Code:wght@100..700&family=Montserrat:wght@200&family=Noto+Sans+JP:wght@100&display=swap"
+        rel="stylesheet">
+</head>
+
+<body>
+    <header>
+        <nav>
+            <ul>
+                <img src="MMG_logo.png" class="logo">
+                <li><a href="index.html">トップページ</a></li>
+                <li><a href="index.html">目標一覧</a></li>
+                <li><a href="link.html">目標紐付け</a></li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <section class="cta-section">
+            <a href="new_goal.html" class="cta-button">目標登録</a>
+        </section>
+        <section class="goals-section">
+            <h2>目標一覧</h2>
+            <div class="goal-cards">
+                <div class="goal-card" onclick="openModal()">
+                    <h3>目標1</h3>
+                    <p style="color: red;">達成期限: 2024年4月1日</p>
+                    <p>達成状況: 進行中</p>
+                </div>
+                <div class="goal-card" onclick="openModal()">
+                    <h3>目標2</h3>
+                    <p>達成期限: 2024年4月15日</p>
+                    <p>達成状況: 達成</p>
+                </div>
+                <div class="goal-card" onclick="openModal()">
+                    <h3>目標3</h3>
+                    <p>達成期限: 2024年10月15日</p>
+                    <p>達成状況: 進行中</p>
+                </div>
+                <div class="goal-card" onclick="openModal()">
+                    <h3>目標4</h3>
+                    <p>達成期限: 2024年10月15日</p>
+                    <p>達成状況: 未着手</p>
+                </div>
+            </div>
+            <a href="">もっとみる</a>
+        </section>
+    </main>
+    <!-- モーダル -->
+    <div id="modal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal()">&times;</span>
+            <h2>目標詳細</h2>
+            <div class="button-group">
+                <button class="evaluate">評価</button>
+                <button onclick="openDeleteModal()">削除</button>
+                <button class="edit" onclick="enableEdit()">編集</button>
+            </div>
+            <div class="goal-details">
+                <p><strong>目標名:</strong> 目標2</p>
+                <p><strong>達成のための行動:</strong> 頑張る頑張る頑張る頑張る頑張る頑張る頑張る頑張る頑張る頑張る頑張る頑張る頑張る頑張る</p>
+                <p><strong>設定日時:</strong> 2024/01/01</p>
+                <p><strong>達成期限:</strong> 2024/04/15</p>
+            </div>
+            <div class="goal-checks">
+                <p><strong>評価日:</strong> 2024/04/01</p>
+                <p><strong>達成状況:</strong> 達成</p>
+                <p><strong>評価内容:</strong> できたできたできたできたできたできたできたできたできたできたできたできたできた</p>
+            </div>
+            <div class="linked_goals">
+                <p>●紐付けされた目標</p>
+                <p><a href="">目標1目標1目標1目標1目標1目標1</a></p>
+                <p><a href="">目標3目標3目標3目標3目標3目標3</a></p>
+            </div>
+            <div class="edit-details" style="display: none;">
+                <div class="input_group">
+                    <input type="text" id="edit-goal-name" value="目標2"><br>
+                </div>
+                <textarea id="edit-action">頑張る頑張る頑張る頑張る頑張る頑張る頑張る頑張る頑張る頑張る頑張る頑張る頑張る頑張る</textarea><br>
+                <input type="date" id="edit-deadline" placeholder="達成期限" value="2024-04-15"><br>
+                <div class="button-group">
+                    <button onclick="updateGoal()">更新</button>
+                    <button onclick="cancelEdit()">キャンセル</button>
+                </div>
+            </div>
+
+            <!-- 削除確認用モーダル -->
+            <div id="delete-modal" class="modal">
+                <div class="modal-content">
+                    <span class="close" onclick="closeDeleteModal()">&times;</span>
+                    <h2>目標削除</h2>
+                    <p>本当に削除しますか？</p>
+                    <div class="button-group">
+                        <button onclick="deleteGoal()">削除</button>
+                        <button onclick="closeDeleteModal()">キャンセル</button>
+                    </div>
+                </div>
+            </div>
+
+            <script>
+                function openModal() {
+                    document.getElementById("modal").style.display = "block";
+                }
+
+                function closeModal() {
+                    document.getElementById("modal").style.display = "none";
+                }
+
+                function openDeleteModal() {
+                    document.getElementById("delete-modal").style.display = "block";
+                }
+
+                function closeDeleteModal() {
+                    document.getElementById("delete-modal").style.display = "none";
+                }
+
+                window.onclick = function (event) {
+                    var modal = document.getElementById("modal");
+                    var deleteModal = document.getElementById("delete-modal");
+                    if (event.target == modal) {
+                        modal.style.display = "none";
+                    }
+                    if (event.target == deleteModal) {
+                        deleteModal.style.display = "none";
+                    }
+                }
+
+                function enableEdit() {
+                    var goalDetails = document.querySelector('.goal-details');
+                    var goalChecks = document.querySelector('.goal-checks');
+                    var linked_goals = document.querySelector('.linked_goals');
+                    var editDetails = document.querySelector('.edit-details');
+                    var buttonGroup = document.querySelector('.button-group');
+
+                    goalDetails.style.display = 'none';
+                    goalChecks.style.display = 'none';
+                    linked_goals.style.display = 'none';
+                    buttonGroup.style.display = 'none';
+                    editDetails.style.display = 'block';
+                }
+
+                function cancelEdit() {
+                    var goalDetails = document.querySelector('.goal-details');
+                    var goalChecks = document.querySelector('.goal-checks');
+                    var linked_goals = document.querySelector('.linked_goals');
+                    var editDetails = document.querySelector('.edit-details');
+                    var buttonGroup = document.querySelector('.button-group');
+                    goalDetails.style.display = 'block';
+                    goalChecks.style.display = 'block';
+                    linked_goals.style.display = 'block';
+                    buttonGroup.style.display = 'block';
+                    editDetails.style.display = 'none';
+                }
+
+                function updateGoal() {
+                    // Here you can write the logic to update the goal details
+                }
+
+                function deleteGoal() {
+                    // Here you can write the logic to delete the goal
+                    alert("Goal deleted successfully!");
+                    closeModal();
+                    closeDeleteModal();
+                }
+            </script>

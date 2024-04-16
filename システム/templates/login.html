@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>新規目標登録画面 - MMO</title>
+    <link rel="stylesheet" href="static/styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=M+PLUS+1+Code:wght@100..700&family=Montserrat:wght@200&family=Noto+Sans+JP:wght@100&display=swap"
+        rel="stylesheet">
+</head>
+
+<body>
+    <section class="login">
+        <form action="/login" class="login_form" method="POST">
+            <img src="static/images/MMG_logo.png" class="login_logo">
+            <h2>ログイン</h2>
+            {% with messages = get_flashed_messages(with_categories=true) %}
+            {% for category, message in messages %}
+            {% if category == 'top_flash' %}
+            <p class="alert">{{ message }}</p>
+            {% endif %}
+            {% endfor %}
+            {% endwith %}
+            <div class="input-group">
+                <label for="email">メールアドレス<span class="required">*</span></label>
+                {% with messages = get_flashed_messages(with_categories=true) %}
+                {% for category, message in messages %}
+                {% if category == 'email_flash' %}
+                <p class="alert">{{ message }}</p>
+                {% endif %}
+                {% endfor %}
+                {% endwith %}
+                <input type="text" id="email" name="email" value="{{email_input}}">
+            </div>
+            <div class="input-group">
+                <label for="password">パスワード<span class="required">*</span></label>
+                {% with messages = get_flashed_messages(with_categories=true) %}
+                {% for category, message in messages %}
+                {% if category == 'password_flash' %}
+                <p class="alert">{{ message }}</p>
+                {% endif %}
+                {% endfor %}
+                {% endwith %}
+                <input type="password" id="password" name="password"></input>
+            </div>
+            <input type="submit" class="cta-button" value="ログイン">
+            <a href="/display_user_registration">会員登録はこちら</a>
+        </form>
+    </section>
+</body>
+
+</html>

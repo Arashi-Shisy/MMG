@@ -1,0 +1,48 @@
+{% extends "layout.html" %}
+
+{% block title %}
+TopPage
+{% endblock %}
+
+{% block content %}
+<main>
+    {% with messages = get_flashed_messages(with_categories=true) %}
+    {% for category, message in messages %}
+    {% if category == 'top_flash' %}
+    <p class="alert">{{ message }}</p>
+    {% endif %}
+    {% endfor %}
+    {% endwith %}
+    <section class="old-goal-section">
+        <h2>元の目標</h2>
+        <p><strong>目標名:</strong> <input type="text" value="{{goal_detail.goal_title}}" disabled></p>
+        <p><strong>達成のための行動:</strong> <textarea id="action" name="action" disabled>{{goal_detail.action}}</textarea>
+        </p>
+        <p><strong>設定日時:</strong> <input type="date" disabled value="{{goal_detail.created_at}}"></p>
+        <p><strong>達成期限:</strong> <input type="date" disabled value="{{goal_detail.deadline}}"></p>
+        <p><strong>評価日:</strong> <input type="date" disabled value="{{goal_detail.evaluationed_at}}"></p>
+        <p><strong>達成状況:</strong> <select name="" id="" disabled>
+                <option value="{{goal_detail.status}}">{{goal_detail.status}}</option>
+            </select></p>
+        <p><strong>評価内容:</strong> <textarea id="action" name="action" disabled>{{goal_detail.evaluation}}</textarea></p>
+    </section>
+    <section class="new-goal-section">
+        <h2>後続目標登録</h2>
+        <form action="/subsequent_goal_registration/goal_id={{goal_detail.goal_id}}" method="POST">
+            <div class="input-group">
+                <label for="goal-title">目標タイトル<span class="required">*</span></label>
+                <input type="text" id="goal-title" name="goal_title" required>
+            </div>
+            <div class="input-group">
+                <label for="action">達成のための行動<span class="required">*</span></label>
+                <textarea id="action" name="action" required></textarea>
+            </div>
+            <div class="input-group">
+                <label for="deadline">達成期限<span class="required">*</span></label>
+                <input type="date" id="deadline" name="deadline" required>
+            </div>
+            <input type="submit" class="cta-button" value="登録"></input>
+        </form>
+    </section>
+</main>
+{% endblock %}

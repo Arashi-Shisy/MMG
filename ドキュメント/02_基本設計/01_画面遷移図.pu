@@ -1,0 +1,29 @@
+@startuml
+skinparam componentStyle uml2
+
+rectangle 会員登録 as join
+rectangle ログイン as login
+rectangle トップページ as top
+rectangle 新規目標登録 as new
+rectangle 目標一覧 as list
+rectangle 目標詳細 as detail{
+    rectangle 目標編集 as update
+}
+rectangle 目標評価 as check
+rectangle 後続目標登録 as second
+rectangle 目標紐付け as string
+
+join -right-> login
+login -right-> top
+top <-down-> new
+top <-down-> list
+top <-down-> string
+new <-right-> string
+string <-right-> list
+list <-down-> detail
+detail <-left-> check
+check <-left-> second
+check <-up-> list
+second <-up-> list
+
+@enduml

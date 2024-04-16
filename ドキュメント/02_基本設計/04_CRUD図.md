@@ -1,0 +1,13 @@
+|イベントNo|論理名|物理名|users|goals|goal_links|
+|----|----|----|----|----|----|
+|E01|会員登録|addUser|CR|-|-|
+|E02|ログイン|canLogin|R|-|-|
+|E03|目標一覧取得|getGoalList|-|R|R|
+|E04|目標詳細取得|getGoalDetails|-|R|-|
+|E05|目標編集|updateGoal|-|U|-|
+|E06|目標削除|deleteGoal|-|U|-|
+|E07|新規目標登録|addNewGoal|-|C|-|
+|E08|後続目標登録|addSubsequentGoal|-|C|C|
+|E09|評価確定|evaluationGoal|-|U|-|
+|E10|目標紐付け確定|linkGoals|-|-|C|
+|E11|目標紐付け取得|getGoalLinks|-|-|R|

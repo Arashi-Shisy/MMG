@@ -1,0 +1,28 @@
+{% extends "layout.html" %}
+
+{% block title %}
+TopPage
+{% endblock %}
+
+{% block content %}
+<main>
+    <section class="new-goal-section">
+        <h2>新規目標登録</h2>
+        <form action="/add_goal" method="POST">
+            <div class="input-group">
+                <label for="goal-title">目標タイトル<span class="required">*</span></label>
+                <input type="text" id="goal-title" name="goal_title" required>
+            </div>
+            <div class="input-group">
+                <label for="action">達成のための行動<span class="required">*</span></label>
+                <textarea id="action" name="action" required></textarea>
+            </div>
+            <div class="input-group">
+                <label for="deadline">達成期限<span class="required">*</span></label>
+                <input type="date" id="deadline" name="deadline" required>
+            </div>
+            <input type="submit" class="cta-button" value="登録"></input>
+        </form>
+    </section>
+</main>
+{% endblock %}

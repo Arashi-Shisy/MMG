@@ -1,0 +1,157 @@
+{% extends "layout.html" %}
+
+{% block title %}
+TopPage
+{% endblock %}
+
+{% block content %}
+<main>
+    {% with messages = get_flashed_messages(with_categories=true) %}
+    {% for category, message in messages %}
+    {% if category == 'top_flash' %}
+    <p class="alert">{{ message }}</p>
+    {% endif %}
+    {% endfor %}
+    {% endwith %}
+    <section class="cta-section">
+        <a href="/display_new_goal_registration" class="cta-button">目標登録</a>
+    </section>
+    <section class="goals-section">
+        <h2>目標一覧</h2>
+        <div class="goal-cards">
+            {% for goal in goal_list %}
+            <!-- 目標カード -->
+            <div class="goal-card" onclick="openModal('{{ goal.goal_id }}')">
+                <h3>{{goal.goal_title}}</h3>
+                {% if goal.deadline < today %}
+                <p style="color: red;">達成期限: {{goal.deadline}}</p>
+                {% else %}
+                <p>達成期限: {{goal.deadline}}</p>
+                {% endif %}
+                <p>達成状況: {{goal.status}}</p>
+            </div>
+            <!-- モーダル -->
+            <div id="modal-{{goal.goal_id}}" class="modal">
+                <div class="modal-content">
+                    <span class="close"
+                        onclick="cancelEdit('{{ goal.goal_id }}') ; closeModal('{{ goal.goal_id }}')">&times;</span>
+                    <h2>目標詳細</h2>
+                    <div class="button-group">
+                        <button class="evaluate"
+                            onclick="location.href='/display_evaluation_goal/goal_id={{goal.goal_id}}'">評価</button>
+                        <button onclick="openDeleteModal('{{ goal.goal_id }}')">削除</button>
+                        <button class="edit" onclick="enableEdit('{{ goal.goal_id }}')">編集</button>
+                    </div>
+                    <!-- 詳細エリア -->
+                    <div class="goal-details">
+                        <p><strong>目標名:</strong> {{goal.goal_title}}</p>
+                        <p><strong>達成のための行動:</strong> {{goal.action}}</p>
+                        <p><strong>設定日時:</strong> {{goal.created_at}}</p>
+                        <p><strong>達成期限:</strong> {{goal.deadline}}</p>
+                    </div>
+                    <!-- 編集モード時の記述 -->
+                    <div class="edit-details" style="display: none;">
+                        <form action="/update_goal/goal_id={{goal.goal_id}}" method="POST">
+                            <div class="input_group">
+                                <input type="text" id="edit-goal-name-{{ goal.goal_id }}" value={{goal.goal_title}}
+                                    name="goal_title"><br>
+                            </div>
+                            <textarea id="edit-action{{ goal.goal_id }}" name="action">{{goal.action}}</textarea><br>
+                            <input type="date" id="edit-deadline-{{ goal.goal_id }}" placeholder="達成期限"
+                                value={{goal.deadline}} name="deadline"><br>
+                            <div class="button-group">
+                                <p>
+                                    <button type="button" onclick="cancelEdit('{{ goal.goal_id }}')">キャンセル</button>
+                                    <button class="update-button">更新</button>
+                                </p>
+                            </div>
+                        </form>
+                    </div>
+                    {% if goal.status != '進行中' %}
+                    <!-- 評価エリア -->
+                    <div class="goal-checks">
+                        <p><strong>評価日:</strong> {{goal.evaluationed_at}}</p>
+                        <p><strong>達成状況:</strong>{{goal.status}}</p>
+                        <p><strong>評価内容:</strong>{{goal.evaluation}}</p>
+                    </div>
+                    {% endif %}
+                    <!-- 紐付けエリア -->
+                    <div class="linked_goals">
+                        <p>●紐付けされた目標</p>
+                        {% for linked_goal in linked_goals %}
+                        {% if linked_goal[0] == goal.goal_id %}
+                        <p>{{linked_goal[2]}}</p>
+                        {% endif %}
+                        {% endfor %}
+                    </div>
+
+                    <!-- 削除確認モーダル -->
+                    <div id="delete-modal-{{goal.goal_id}}" class="modal">
+                        <div class="modal-content">
+                            <span class="close" onclick="closeDeleteModal('{{ goal.goal_id }}')">&times;</span>
+                            <h2>目標削除</h2>
+                            <p>本当に削除しますか？</p>
+                            <div class="button-group">
+                                <button onclick="location.href='/delete_goal/goal_id={{goal.goal_id}}'">削除</button>
+                                <button onclick="closeDeleteModal('{{ goal.goal_id }}')">キャンセル</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+        <!-- <a href="">もっとみる</a> -->
+    </section>
+</main>
+<script>
+    function openModal(goalid) {
+        var modalId = "modal-" + goalid;
+        var modal = document.getElementById(modalId);
+        modal.style.display = "block";
+    }
+
+    function closeModal(goalid) {
+        var modalId = "modal-" + goalid;
+        var modal = document.getElementById(modalId);
+        modal.style.display = "none";
+    }
+
+    function openDeleteModal(goalid) {
+        var modalId = "delete-modal-" + goalid;
+        var modal = document.getElementById(modalId);
+        modal.style.display = "block";
+    }
+
+    function closeDeleteModal(goalid) {
+        var modalId = "delete-modal-" + goalid;
+        var modal = document.getElementById(modalId);
+        modal.style.display = "none";
+    }
+
+    function enableEdit(goalid) {
+        var modalId = "modal-" + goalid;
+        var modal = document.getElementById(modalId);
+        var buttonGroup = modal.querySelector('.button-group');
+        var goalDetails = modal.querySelector('.goal-details');
+        var editDetails = modal.querySelector('.edit-details');
+
+        buttonGroup.style.display = 'none';
+        goalDetails.style.display = 'none';
+        editDetails.style.display = 'block';
+    }
+
+    function cancelEdit(goalid) {
+        var modalId = "modal-" + goalid;
+        var modal = document.getElementById(modalId);
+        var buttonGroup = modal.querySelector('.button-group');
+        var goalDetails = modal.querySelector('.goal-details');
+        var editDetails = modal.querySelector('.edit-details');
+
+        buttonGroup.style.display = 'block';
+        goalDetails.style.display = 'block';
+        editDetails.style.display = 'none';
+    }
+</script>
+
+{% endblock %}

@@ -1,0 +1,457 @@
+/* Resetting default browser styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* Main content styles */
+main {
+    max-width: 800px;
+    margin: 20px auto;
+    padding: 0 20px;
+}
+
+section {
+    width: 97%;
+}
+
+form {
+    width: 97%;
+}
+
+input[type=text],
+input[type=date],
+select,
+textarea {
+    width: 97%;
+    text-align: left;
+    padding: 10px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    background-color: #1a1a1a;
+    color: #fff;
+    margin-top: 20px;
+    margin-bottom: 5px;
+}
+
+a {
+    text-decoration: none;
+    color: #950098;
+}
+
+h2 {
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
+label {
+    display: block;
+    color: #fff;
+    margin-top: 30px;
+    background-color: #80899B;
+}
+
+.logo {
+    width: 50px;
+    height: 50px;
+    margin-right: 50px;
+}
+
+.alert {
+    color: red;
+    margin-top: auto;
+    margin-bottom: 0;
+}
+
+/* Body styles */
+body {
+    font-family: Arial, sans-serif;
+    background: #434767;
+    /* 全体の背景色 */
+    color: #fff;
+    /* White text */
+}
+
+/* Header styles */
+header {
+    background: linear-gradient(135deg, #1a1a1a, #2B3148);
+    /* Darker gradient background */
+    color: #fff;
+    padding: 10px 20px;
+    /* Add padding to the right to align links and button to the right */
+    display: flex;
+    /* Make header flex container */
+    justify-content: space-between;
+    /* Align links and button to the right */
+}
+
+nav ul {
+    list-style: none;
+    text-align: right;
+    /* Align links to the right */
+}
+
+nav ul li {
+    display: inline;
+    margin: 0 10px;
+}
+
+nav ul li a {
+    color: #fff;
+    text-decoration: none;
+    border-bottom: 2px solid transparent;
+    /* Add transparent bottom border to links */
+    transition: border-color 0.3s ease;
+    /* Smooth transition for border color */
+}
+
+nav ul li a:hover {
+    border-color: #fff;
+    /* Change border color on hover */
+}
+
+
+
+/* Goal card styles */
+.goal-cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap: 20px;
+}
+
+.goal-card {
+    background-color: #80899B;
+    /* カードの色 */
+    padding: 20px;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    /* Hover時のアニメーション */
+}
+
+.goal-card:hover {
+    background-color: #3ED2F3;
+    /* カードにホバーすると色が変わる */
+}
+
+.goal-card h3 {
+    font-size: 24px;
+    /* Larger title */
+    margin-bottom: 15px;
+    color: #fff;
+    /* White text */
+}
+
+.goal-card p {
+    font-size: 16px;
+    /* Larger text */
+    color: #ccc;
+    /* Lighter text */
+    margin-bottom: 10px;
+}
+
+/* Adjusting distance between goal cards and goal list text */
+.goals-section h2 {
+    margin-bottom: 20px;
+    /* Increase margin to create more space */
+}
+
+
+/* Common input styles */
+.input-group {
+    margin-bottom: 20px;
+}
+
+
+
+
+
+/* CTA button styles */
+.cta-button {
+    padding: 15px 30px;
+    font-size: 20px;
+    background-color: #3ED2F3;
+    width: 20%;
+    /* Button color */
+    color: #fff;
+    border: 2px solid #3ED2F3;
+    /* Button border */
+    border-radius: 10px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.3s ease, border-color 0.3s ease;
+    display: block;
+    margin-left: auto;
+    text-align: center;
+}
+
+.cta-button:hover {
+    background-color: #1FBAC8;
+    /* Darker button background on hover */
+    border-color: #1FBAC8;
+    /* Darker button border on hover */
+    transform: translateY(-2px);
+    /* Adding slight lift effect on hover */
+}
+
+/* Modal styles */
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1000;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    /* Semi-transparent background */
+    overflow: auto;
+}
+
+.delete_modal {
+    margin: auto;
+    width: 100vw;
+    height: 100vh;
+    z-index: 1200;
+}
+
+.modal-content {
+    background-color: #1a1a1a;
+    /* Modal background color */
+    margin: 10% auto;
+    padding: 40px;
+    /* Increased padding */
+    border-radius: 10px;
+    max-width: 800px;
+    /* Increased max-width */
+    position: relative;
+    line-height: 1.7;
+    /* Increased line-height */
+}
+
+.close {
+    color: #fff;
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    font-size: 24px;
+    cursor: pointer;
+}
+
+/* Modal button styles */
+.modal-content button {
+    padding: 10px 20px;
+    font-size: 16px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-right: 10px;
+}
+
+.update-button {
+    background-color: #3ED2F3;
+    color: #fff;
+}
+
+.button-group {
+    margin-bottom: 30px;
+}
+
+/* Modal button colors */
+.modal-content button.edit,
+.modal-content button.delete {
+    background-color: #80899B;
+    color: #fff;
+    /* ボタンのテキストカラー */
+}
+
+.modal-content button.evaluate {
+    background-color: #3ED2F3;
+    color: #fff;
+}
+
+/* Modal button hover effect */
+.modal-content button:hover {
+    background-color: #1FBAC8;
+    /* Darker button background on hover */
+}
+
+/* Close button hover effect */
+.close:hover {
+    color: #ccc;
+    /* Lighter text on hover */
+}
+
+.modal-content button {
+    float: right;
+}
+
+/* Adjusting distance between goal cards and goal list text */
+.goals-section h2 {
+    margin-bottom: 20px;
+    /* Increase margin to create more space */
+}
+
+/* Goal details in modal */
+.goal-details p {
+    color: #fff;
+    /* White text */
+    margin-bottom: 10px;
+    /* Add some bottom margin */
+}
+
+/* Goal checks in modal */
+.goal-checks,
+.linked_goals {
+    margin-top: 40px;
+    background-color: #80899B;
+    border-radius: 5px;
+    padding: 10px;
+}
+
+.goal-checks p,
+.linked_goals p {
+    margin-bottom: 10px;
+}
+
+/* Editing mode */
+.editing-mode .goal-details {
+    display: flex;
+    flex-direction: column;
+}
+
+.editing-mode .goal-details input,
+.editing-mode .goal-details textarea {
+    width: 100%;
+    padding: 10px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    background-color: #1a1a1a;
+    color: #fff;
+    margin-bottom: 10px;
+}
+
+.editing-mode .button-group {
+    display: none;
+    margin-top: 20px;
+}
+
+.editing-mode .update-button,
+.editing-mode .cancel-button {
+    display: inline-block;
+    padding: 10px 20px;
+    font-size: 16px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-right: 10px;
+    background-color: #3ED2F3;
+    color: #fff;
+}
+
+.editing-mode .cancel-button {
+    background-color: #80899B;
+}
+
+.edit-details {
+    margin-bottom: 60px;
+}
+
+
+/* Goal evaluation page */
+.goal-evaluation {
+    margin-top: 20px;
+    padding: 20px;
+    border-radius: 10px;
+}
+
+.goal-evaluation .cta-button {
+    display: block;
+    margin: 0 auto;
+    padding: 15px 30px;
+    font-size: 20px;
+    background-color: #3ED2F3;
+    color: #fff;
+    border: 2px solid #3ED2F3;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.3s ease, border-color 0.3s ease;
+}
+
+.goal-evaluation .cta-button:hover {
+    background-color: #1FBAC8;
+    border-color: #1FBAC8;
+    transform: translateY(-2px);
+}
+
+/* New goal registration page */
+.new-goal-section {
+    margin-top: 20px;
+    padding: 20px;
+    border-radius: 10px;
+    margin: auto;
+}
+
+/* Goal linking page */
+.link-section {
+    margin-top: 20px;
+    padding: 20px;
+    border-radius: 10px;
+}
+
+/* Login page */
+
+.login {
+    text-align: center;
+    width: 80vw;
+    margin: auto;
+}
+
+.login_form {
+    margin-top: 20px;
+    background-color: #2B3148;
+    padding: 20px;
+    border-radius: 5px;
+}
+
+.login_logo {
+    width: 20vw;
+}
+
+.login .input-group {
+    width: 40vw;
+    margin: auto;
+}
+
+.login .cta-button {
+    margin-top: 40px;
+    margin-right: auto;
+    margin-left: auto;
+}
+
+/* subsequent goal  page */
+.old-goal-section {
+    width: 80%;
+    border-radius: 5px;
+    padding: 10px;
+    margin: auto;
+    font-size: small;
+}
+
+.old-goal-section input,
+.old-goal-section select,
+.old-goal-section textarea {
+    width: 97%;
+    text-align: left;
+    padding: 5px;
+    font-size: 10px;
+    border: none;
+    border-radius: 5px;
+    background-color: #212121;
+    color: #fff;
+    margin: auto;
+    margin-top: 2px;
+    margin-bottom: 10px;
+}

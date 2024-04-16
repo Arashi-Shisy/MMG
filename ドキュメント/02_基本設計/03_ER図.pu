@@ -1,0 +1,42 @@
+@startuml
+
+entity users as "users"{
+    + user_id
+    --
+    mail_address 
+    password var
+    del_flg
+    created_at
+    updated_at
+}
+
+entity goals as "goals"{
+    + goal_id
+    --
+    # user_id
+    goal_title
+    action
+    deadline
+    status
+    evaluation
+    evaluationed_at
+    del_flg
+    created_at
+    updated_at
+}
+
+entity links as "goal_links"{
+    + link_id
+    --
+    # goal_id_01
+    # goal_id_02
+    del_flg
+    created_at
+    updated_at
+}
+
+users ||-o{ goals
+goals ||-o{ links
+
+
+@enduml

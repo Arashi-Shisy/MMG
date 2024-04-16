@@ -1,0 +1,29 @@
+@startuml
+
+class User {
+    user_info
+    addUser() = void
+    login() = void
+}
+
+class Goal {
+    goal_details
+    evaluation
+    addGoal() = void
+    updateGoal() = void
+    deleteGoal() = void
+    evaluationGoal() = void
+    getGoalList() = String
+    getGoalDetail() = String
+}
+
+class Link {
+    link_info
+    linkGoals() = void
+    getGoalLinks() = Int/String
+}
+
+User "1" -- "1..*" Goal
+Goal -r- Link
+
+@enduml

@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>目標評価画面 - MMO</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=M+PLUS+1+Code:wght@100..700&family=Montserrat:wght@200&family=Noto+Sans+JP:wght@100&display=swap"
+        rel="stylesheet">
+</head>
+
+<body>
+    <header>
+        <nav>
+            <ul>
+                <img src="MMG_logo.png" class="logo">
+                <li><a href="index.html">トップページ</a></li>
+                <li><a href="index.html">目標一覧</a></li>
+                <li><a href="link.html">目標紐付け</a></li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <section class="evaluation-section">
+            <h2>目標評価</h2>
+            <section class="old-goal-section">
+                <p><strong>目標名:</strong> <input type="text" value="目標2" disabled></p>
+                <p><strong>達成のための行動:</strong> <textarea id="action" name="action"
+                        disabled>頑張る頑張る頑張る頑張る頑張る頑張る頑張る頑張る頑張る頑張る頑張る頑張る頑張る頑張る</textarea></p>
+                <p><strong>設定日時:</strong> <input type="date" disabled value="2024-01-01"></p>
+                <p><strong>達成期限:</strong> <input type="date" disabled value="2024-04-15"></p>
+            </section>
+            <div class="goal-evaluation">
+                <div class="input-group">
+                    <label for="achievement-status">達成判定</label>
+                    <select id="achievement-status" name="achievement-status">
+                        <option value="achieved">達成</option>
+                        <option value="unachieved">未達成</option>
+                    </select>
+                </div>
+                <div class="input-group">
+                    <label for="self-evaluation">自己評価</label>
+                    <textarea id="self-evaluation" name="self-evaluation"></textarea>
+                </div>
+            </div>
+            <button class="cta-button" onclick="openModal()">評価確定</button>
+        </section>
+    </main>
+
+    <!-- 評価完了モーダル -->
+    <div id="evaluationed-modal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeDeleteModal()">&times;</span>
+            <h2>評価が完了しました</h2>
+            <p>後続目標を登録しますか？</p>
+            <div class="button-group">
+                <button>はい</button>
+                <button>いいえ</button>
+            </div>
+        </div>
+    </div>
+    <script>
+        function openModal() {
+            document.getElementById("evaluationed-modal").style.display = "block";
+        }
+    </script>
+
+
+</body>
+
+</html>

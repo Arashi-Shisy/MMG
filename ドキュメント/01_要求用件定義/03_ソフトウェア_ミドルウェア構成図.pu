@@ -1,0 +1,38 @@
+@startuml
+skinparam componentStyle uml2
+
+actor User
+[Web Browser]
+
+node "Web Server" {
+    [Nginx]
+}
+
+node "Application Server" {
+    [uWSGI]
+    package "Flask"{
+    [app.py]
+    [Controller]
+    }
+    [DAO]
+    [Connection]
+    [Batch]
+}
+
+node "Database Server" {
+    database MySQL
+}
+
+User <-right-> [Web Browser]
+[Web Browser] <-down-> [Nginx]
+[Nginx] <--> [uWSGI]
+[uWSGI] <--> [app.py]
+[app.py] <-right-> [Controller]
+[Controller] <--> [DAO]
+[DAO] <--> [Connection]
+[Connection] <--> [MySQL]
+[Batch] -up-> User : Mail
+[Connection] -up-> [Batch]
+
+@enduml
+

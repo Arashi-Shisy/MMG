@@ -1,0 +1,73 @@
+{% extends "layout.html" %}
+
+{% block title %}
+TopPage
+{% endblock %}
+
+{% block content %}
+<main>
+    <section class="evaluation-section">
+        <h2>目標評価</h2>
+        <section class="old-goal-section">
+            <p><strong>目標名:</strong> <input type="text" value="{{goal_detail.goal_title}}" disabled></p>
+            <p><strong>達成のための行動:</strong> <textarea id="action" name="action" disabled>{{goal_detail.action}}</textarea>
+            </p>
+            <p><strong>設定日時:</strong> <input type="date" disabled value="{{goal_detail.created_at}}"></p>
+            <p><strong>達成期限:</strong> <input type="date" disabled value="{{goal_detail.deadline}}"></p>
+        </section>
+        <form id="evaluation-form" action="/evaluation_goal/goal_id={{goal_detail.goal_id}}" method="POST">
+            <div class="goal-evaluation">
+                <div class="input-group">
+                    <label for="achievement-status">達成判定</label>
+                    <select id="achievement-status" name="status">
+                        <option value="達成">達成</option>
+                        <option value="未達成">未達成</option>
+                    </select>
+                </div>
+                <div class="input-group">
+                    <label for="evaluation">自己評価</label>
+                    <textarea id="evaluation" name="evaluation"></textarea>
+                </div>
+            </div>
+            <button type="submit" class="cta-button">評価確定</button>
+        </form>
+    </section>
+</main>
+
+<!-- 評価完了モーダル -->
+<div id="evaluationed-modal" class="modal" style="display: none;">
+    <div class="modal-content">
+        <span class="close" onclick="closeDeleteModal()">&times;</span>
+        <h2>評価が完了しました</h2>
+        <p>後続目標を登録しますか？</p>
+        <div class="button-group">
+            <button
+                onclick="location.href='/display_subsequent_goal_registration/goal_id={{goal_detail.goal_id}}'">はい</button>
+            <button onclick="location.href='/'">いいえ</button>
+        </div>
+    </div>
+</div>
+<script>
+    function openModal() {
+        document.getElementById("evaluationed-modal").style.display = "block";
+    }
+
+    function closeDeleteModal() {
+        document.getElementById("evaluationed-modal").style.display = "none";
+    }
+
+    // ページ読み込み時に実行
+    window.onload = function () {
+        // URLパラメータからメッセージを取得
+        const urlParams = new URLSearchParams(window.location.search);
+        const message = urlParams.get('message');
+
+        // メッセージが存在し、かつ評価成功の場合、モーダルを表示
+        if (message === 'evaluation_success') {
+            openModal();
+        }
+    };
+</script>
+
+
+{% endblock %}
