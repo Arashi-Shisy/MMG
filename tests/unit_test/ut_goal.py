@@ -1,9 +1,11 @@
 import unittest
-from unit_test_setting import *
 import sys
-sys.path.append("システム/")
-from dao.GoalManagement import *
-from controller.Users import *
+import os
+home_dir = os.path.expanduser("~")
+sys.path.append(os.path.join(home_dir, "Desktop", "MMG"))
+from tests.test_setting import *
+from systems.dao.GoalManagement import *
+from systems.controller.Users import *
 
 class TestGoalMethods(unittest.TestCase):
     def test_get_goal_list(self):

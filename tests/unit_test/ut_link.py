@@ -1,9 +1,11 @@
 import unittest
-from unit_test_setting import *
 import sys
-sys.path.append("システム/")
-from dao.LinkManagement import *
-from controller.Links import *
+import os
+home_dir = os.path.expanduser("~")
+sys.path.append(os.path.join(home_dir, "Desktop", "MMG"))
+from tests.test_setting import *
+from systems.dao.LinkManagement import *
+from systems.controller.Links import *
 
 class TestLinkMethods(unittest.TestCase):
     def test_validation_link_goals(self):

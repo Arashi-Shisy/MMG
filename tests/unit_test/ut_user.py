@@ -1,9 +1,11 @@
 import unittest
-from unit_test_setting import *
 import sys
-sys.path.append("システム/")
-from dao.UserManagement import *
-from controller.Users import *
+import os
+home_dir = os.path.expanduser("~")
+sys.path.append(os.path.join(home_dir, "Desktop", "MMG"))
+from tests.test_setting import *
+from systems.dao.UserManagement import *
+from systems.controller.Users import *
 
 class TestUserMethods(unittest.TestCase):
     def test_check_user_exist_true(self):

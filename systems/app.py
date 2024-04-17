@@ -1,3 +1,7 @@
+import sys
+import os
+home_dir = os.path.expanduser("~")
+sys.path.append(os.path.join(home_dir, "Desktop", "MMG","systems"))
 from flask import Flask, render_template, session
 from controller.Users import *
 from controller.Goals import *
