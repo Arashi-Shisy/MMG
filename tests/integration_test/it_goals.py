@@ -31,6 +31,7 @@ class TestApp(unittest.TestCase):
         with app.test_client() as client:
             response = client.get('/delete_goal/goal_id=' + str(TEST_GOAL_ID_DELETE))
             self.assertEqual(response.status_code, 302)
+    def test_add_goal(self):
         with app.test_client() as client:
             with client.session_transaction() as sess:
                 sess['login_user_id'] = 123

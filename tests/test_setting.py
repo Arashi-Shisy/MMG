@@ -3,6 +3,8 @@ import datetime
 TODAY = datetime.date.today()
 TODAY_STR = str(TODAY)
 NOW = str(datetime.datetime.today())
+NOW_STR = datetime.datetime.now().strftime('%m%d%H%M%S')
+NOW_INT = int(NOW_STR)
 BLANK = ""
 
 # USERS_TEST

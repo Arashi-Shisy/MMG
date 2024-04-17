@@ -8,23 +8,28 @@ from systems.dao.LinkManagement import *
 from systems.controller.Links import *
 
 class TestLinkMethods(unittest.TestCase):
-    def test_validation_link_goals(self):
+    def test_validation_link_goals_same(self):
         result = validation_link_goals(TEST_LINK_01,TEST_LINK_01)
         self.assertListEqual(result, [False,'同じ目標同士は紐付けできません','top_flash'])
+    def test_validation_link_goals_exist01(self):
         result = validation_link_goals(TEST_LINK_01,TEST_LINK_EXIST_02)
         self.assertListEqual(result, [False,'既に紐付けられています','top_flash'])
+    def test_validation_link_goals_exist02(self):
         result = validation_link_goals(TEST_LINK_EXIST_02,TEST_LINK_01)
         self.assertListEqual(result, [False,'既に紐付けられています','top_flash'])
+    def test_validation_link_goals_True01(self):
         result = validation_link_goals(TEST_LINK_01,TEST_LINK_EXIST_DELETED_04)
         self.assertListEqual(result, [True,'',''])
+    def test_validation_link_goals_True02(self):
         result = validation_link_goals(TEST_LINK_01,TEST_LINK_NOTEXIST_09)
         self.assertListEqual(result, [True,'',''])
     def test_insert_goal_links(self):
-        result = insert_goal_links(TEST_LINK_NOTEXIST_09,TEST_LINK_NOTEXIST_10)
+        result = insert_goal_links(TEST_LINK_NOTEXIST_09,NOW_INT)
         self.assertEqual(result, True)
-    def test_check_link_exist(self):
+    def test_check_link_exist01(self):
         result = check_link_exist(TEST_LINK_01,TEST_LINK_EXIST_02)
         self.assertEqual(result,True)
+    def test_check_link_exist02(self):
         result = check_link_exist(TEST_LINK_01,TEST_LINK_EXIST_03)
         self.assertEqual(result,True)
     def test_get_linked_goals01(self):

@@ -11,34 +11,46 @@ class TestUserMethods(unittest.TestCase):
     def test_check_user_exist_true(self):
         result = check_user_exist(TEST_USER_EMAIL)
         self.assertEqual(result, True)
-    def test_validation_user_registration(self):
+    def test_validation_user_registration_emailBlank(self):
         result = validation_user_registration(BLANK,BLANK,BLANK)
         self.assertListEqual(result, [False,'メールアドレスは必須項目です','email_flash'])
+    def test_validation_user_registration_emailWrong(self):
         result = validation_user_registration(TEST_PASSWORD,BLANK,BLANK)
         self.assertListEqual(result, [False,'メールアドレスの形式が不正です','email_flash'])
+    def test_validation_user_registration_passwordBlank(self):
         result = validation_user_registration(TEST_USER_EMAIL,BLANK,BLANK)
         self.assertListEqual(result, [False,'パスワードは必須項目です','password_flash'])
+    def test_validation_user_registration_passwordEnglish(self):
         result = validation_user_registration(TEST_USER_EMAIL,TEST_PASSWORD_ENGLISH,BLANK)
         self.assertListEqual(result, [False,'パスワードは半角英数混合の8~12文字で入力してください','password_flash'])
+    def test_validation_user_registration_passwordNum(self):
         result = validation_user_registration(TEST_USER_EMAIL,TEST_PASSWORD_ONLYNUM,BLANK)
         self.assertListEqual(result, [False,'パスワードは半角英数混合の8~12文字で入力してください','password_flash'])
+    def test_validation_user_registration_password13(self):
         result = validation_user_registration(TEST_USER_EMAIL,TEST_PASSWORD_13,BLANK)
         self.assertListEqual(result, [False,'パスワードは半角英数混合の8~12文字で入力してください','password_flash'])
+    def test_validation_user_registration_password07(self):
         result = validation_user_registration(TEST_USER_EMAIL,TEST_PASSWORD_7,BLANK)
         self.assertListEqual(result, [False,'パスワードは半角英数混合の8~12文字で入力してください','password_flash'])
+    def test_validation_user_registration_passwordCheckWrong(self):
         result = validation_user_registration(TEST_USER_EMAIL,TEST_PASSWORD,BLANK)
         self.assertListEqual(result, [False,'パスワードが一致しません','password_check_flash'])
+    def test_validation_user_registration_emailExist(self):
         result = validation_user_registration(TEST_USER_EMAIL_EXIST,TEST_PASSWORD,TEST_PASSWORD)
         self.assertListEqual(result, [False,'このメールアドレスは既に使われています','email_flash'])
+    def test_validation_user_registration_True(self):
         result = validation_user_registration(TEST_USER_EMAIL_NOTEXIST,TEST_PASSWORD,TEST_PASSWORD)
         self.assertListEqual(result, [True,'',''])
-    def test_validation_login(self):
+    def test_validation_login_emailBlank(self):
         result = validation_login(BLANK,BLANK)
         self.assertListEqual(result, [False,'メールアドレスは必須項目です','email_flash'])
+    def test_validation_login_passwordBlank(self):
         result = validation_login(TEST_USER_EMAIL,BLANK)
         self.assertListEqual(result, [False,'パスワードは必須項目です','password_flash'])
+    def test_validation_login_emailNotExist(self):
         result = validation_login(TEST_USER_EMAIL_NOTEXIST,TEST_PASSWORD)
         self.assertListEqual(result, [False,'メールアドレスが登録されていません','email_flash'])
+    def test_validation_login_True(self):
         result = validation_login(TEST_USER_EMAIL_EXIST,TEST_PASSWORD)
         self.assertListEqual(result, [True,'',''])
     def test_check_user_exist_false(self):
@@ -47,10 +59,11 @@ class TestUserMethods(unittest.TestCase):
     def test_insert_user(self):
         result = insert_user(TEST_USER_EMAIL,TEST_PASSWORD)
         self.assertEqual(result, True)
-    def test_login_check(self):
+    def test_login_check_True(self):
         result = login_check(TEST_USER_EMAIL_EXIST,TEST_PASSWORD)
         self.assertEqual(result[0], True)
         self.assertIsInstance(result[1],(int))
+    def test_login_check_passwordWrong(self):
         result = login_check(TEST_USER_EMAIL_EXIST,TEST_PASSWORD_WRONG)
         self.assertEqual(result[0], False)
         self.assertEqual(result[1],0)

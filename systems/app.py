@@ -45,7 +45,10 @@ def index():
 
 @app.route('/display_new_goal_registration')
 def display_new_goal_registration():
-    return(render_template('new_goal_registration.html'))
+    if check_session_status():
+        return redirect(url_for('display_login'))
+    else:
+        return(render_template('new_goal_registration.html'))
 
 @app.route('/display_link_goals')
 def display_link_goals():

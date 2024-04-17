@@ -16,6 +16,8 @@ TopPage
     <section class="cta-section">
         <a href="/display_new_goal_registration" class="cta-button">目標登録</a>
     </section>
+    <!-- 検索ボックス -->
+    <input type="text" id="searchInput" onkeyup="searchGoal()" placeholder="目標タイトルで検索">
     <section class="goals-section">
         <h2>目標一覧</h2>
         <div class="goal-cards">
@@ -151,6 +153,25 @@ TopPage
         buttonGroup.style.display = 'block';
         goalDetails.style.display = 'block';
         editDetails.style.display = 'none';
+    }
+
+    function searchGoal() {
+        // 入力された検索キーワードを取得
+        var input, filter, goalCards, goalTitle, i, txtValue;
+        input = document.getElementById('searchInput');
+        filter = input.value.toUpperCase();
+        goalCards = document.getElementsByClassName('goal-card');
+
+        // 目標一覧の各目標を検索
+        for (i = 0; i < goalCards.length; i++) {
+            goalTitle = goalCards[i].getElementsByTagName("h3")[0];
+            txtValue = goalTitle.textContent || goalTitle.innerText;
+            if (txtValue.toUpperCase().indexOf(filter) > -1) {
+                goalCards[i].style.display = "";
+            } else {
+                goalCards[i].style.display = "none";
+            }
+        }
     }
 </script>
 
