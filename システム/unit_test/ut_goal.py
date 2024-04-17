@@ -25,6 +25,7 @@ class TestGoalMethods(unittest.TestCase):
         result = evaluation_set_goal(TEST_GOAL_ID_UPDATE,TEST_STATUS,TEST_EVALUATION)
         self.assertEqual(result, True)
     def test_get_latest_goal_id(self):
+        insert_goal(TEST_USER_ID_INSERT,TEST_GOAL_TITLE,TEST_ACTION,TEST_DEADLINE)
         result = get_latest_goal_id(TEST_GOAL_TITLE,TEST_ACTION,TEST_DEADLINE)
         self.assertIsInstance(result,(int))
 
