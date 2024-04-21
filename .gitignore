@@ -1,2 +1,5 @@
 systems/connect/MySqlConnect.py
+systems/DS_Store
+*.log
 sample.txt
+*.pyc
