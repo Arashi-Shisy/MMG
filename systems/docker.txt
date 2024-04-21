@@ -1,0 +1,2 @@
+docker run -d -p 8000:8000 --name uWSGI -v /Users/arashik/Desktop/MMG/systems:/app my-uwsgi2200
+docker network connect mynetwork uWSGI

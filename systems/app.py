@@ -2,6 +2,7 @@ import sys
 import os
 home_dir = os.path.expanduser("~")
 sys.path.append(os.path.join(home_dir, "Desktop", "MMG","systems"))
+sys.path.append(os.path.join( "/app"))
 from flask import Flask, render_template, session
 from controller.Users import *
 from controller.Goals import *
@@ -9,6 +10,9 @@ from controller.Links import *
 from controller.Sessions import *
 import logging
 import datetime
+
+logging.basicConfig(filename='/app/app.log', level=logging.DEBUG, format='%(asctime)s - %(levelname)s - %(message)s')
+
 
 app = Flask(__name__, static_folder='./templates/static')
 
@@ -34,6 +38,7 @@ def display_login():
     
 @app.route('/')
 def index():
+    logging.debug('アクセス検知')
     if check_session_status():
         return redirect(url_for('display_login'))
     else:
