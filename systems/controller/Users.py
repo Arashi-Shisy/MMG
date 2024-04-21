@@ -24,6 +24,7 @@ def validation_user_registration(email,password,password_check):
 
 @users_bp.route('/user_registration',methods=["POST"])
 def user_registration():
+    logging.debug('[Object]会員登録開始')
     email = request.form['email']
     password = request.form['password']
     password_check = request.form['password_check']
@@ -33,14 +34,17 @@ def user_registration():
     if validation_result_flg:
         registration_result = insert_user(email,password)
         if registration_result:
+            logging.debug('[Object]会員登録成功')
             flash('会員登録に成功しました','top_flash')
             return redirect(url_for('display_login'))
         else:
+            logging.debug('[Object]会員登録失敗')
             flash('予期せぬエラーが発生しました','top_flash')
             return redirect(url_for('display_user_registration'))
     else:
         flash_msg = validation_result[1]
         flash_category = validation_result[2]
+        logging.debug('[Object]バリデーションエラー：'+flash_msg)
         flash(flash_msg,flash_category)
         return redirect(url_for('display_user_registration'))
 
@@ -58,6 +62,7 @@ def validation_login(email,password):
 
 @users_bp.route('/login',methods=["POST"])
 def login():
+    logging.debug('[Object]ログイン開始')
     email = request.form['email']
     password = request.form['password']
     session['email_input']=email
@@ -67,15 +72,18 @@ def login():
         login_result = login_check(email,password)[0]
         login_user_id = login_check(email,password)[1]
         if login_result:
+            logging.debug('[Object]ログイン成功')
             session['login'] = True
             session['login_user_id'] = login_user_id
             return redirect(url_for('index'))
         else:
+            logging.debug('[Object]ログイン不可_パスワードエラー')
             flash('パスワードが間違っています','password_flash')
             return redirect(url_for('display_login'))
     else:
         flash_msg = validation_result[1]
         flash_category = validation_result[2]
+        logging.debug('[Object]ログイン失敗'+flash_msg)
         flash(flash_msg,flash_category)
         return redirect(url_for('display_login'))
     

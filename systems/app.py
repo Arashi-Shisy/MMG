@@ -27,18 +27,20 @@ app.register_blueprint(links_bp)
 
 @app.route('/display_user_registration')
 def display_user_registration():
+    logging.debug('[Display]会員登録画面表示開始')
     email_input = session.get('email_input',"")
     return(render_template('user_registration.html',email_input=email_input))
 
 @app.route('/display_login')
 def display_login():
+    logging.debug('[Display]ログイン画面表示開始')
     email_input = session.get('email_input',"")
     password_input = session.get('password_input',"")
     return(render_template('login.html',email_input=email_input,password_input=password_input))
     
 @app.route('/')
 def index():
-    logging.debug('アクセス検知')
+    logging.debug('[Display]トップページ表示開始')
     if check_session_status():
         return redirect(url_for('display_login'))
     else:
@@ -50,6 +52,7 @@ def index():
 
 @app.route('/display_new_goal_registration')
 def display_new_goal_registration():
+    logging.debug('[Display]新規目標登録画面表示開始')
     if check_session_status():
         return redirect(url_for('display_login'))
     else:
@@ -57,6 +60,7 @@ def display_new_goal_registration():
 
 @app.route('/display_link_goals')
 def display_link_goals():
+    logging.debug('[Display]目標紐付け画面表示開始')
     if check_session_status():
         return redirect(url_for('display_login'))
     else:
@@ -66,6 +70,7 @@ def display_link_goals():
 
 @app.route('/display_evaluation_goal/goal_id=<goal_id>')
 def display_evaluation_goal(goal_id):
+    logging.debug('[Display]目標評価画面表示開始')
     if check_session_status():
         return redirect(url_for('display_login'))
     else:
@@ -75,6 +80,7 @@ def display_evaluation_goal(goal_id):
 
 @app.route('/display_subsequent_goal_registration/goal_id=<goal_id>')
 def display_subsequent_goal_registration(goal_id):
+    logging.debug('[Display]後続目標登録画面表示開始')
     if check_session_status():
         return redirect(url_for('display_login'))
     else:

@@ -5,7 +5,7 @@ import os
 sys.path.append(os.path.join( "/app"))
 
 def mysql_connect():
-    logging.debug('DB接続開始')
+    logging.debug('- -[Connect]DB接続開始')
     conn = mydb.connect(
         host = 'my-mysql',
         user = 'root',    
@@ -14,5 +14,5 @@ def mysql_connect():
         # database = 'test_mmg'
     )
     conn.ping(reconnect = True)
-    logging.debug('DB接続完了')
+    logging.debug('- -[Connect]DB接続完了')
     return(conn)

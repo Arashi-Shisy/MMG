@@ -13,6 +13,9 @@ RUN pip install --no-cache-dir -r requirements.txt
 # アプリケーションのファイルをコンテナ内にコピー
 COPY . .
 
+# タイムゾーンを設定する
+ENV TZ=Asia/Tokyo
+
 # uWSGIサーバの設定
 ENV UWSGI_INI /app/uwsgi.ini
 
