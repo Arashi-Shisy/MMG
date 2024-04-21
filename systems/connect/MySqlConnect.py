@@ -9,7 +9,7 @@ def mysql_connect():
     conn = mydb.connect(
         host = 'my-mysql',
         user = 'root',    
-        password = 'Bco92855814',
+        password = '********',
         database = 'mmg'
         # database = 'test_mmg'
     )
